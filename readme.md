@@ -1,3 +1,6 @@
+![](/imgs/img.png)
+
+
 # OrderBook Project
 
 This repository contains:
@@ -25,7 +28,7 @@ cd OrderBook.Client
 npm install
 ```
 
-### ▶️ Running
+### ▶️ Running (development)
 ```bash
 npm run dev
 ```
@@ -36,12 +39,8 @@ npm run test
 ```
 
 ## Backend (.NET 9)
-```bash
-cd OrderBookApi/OrderBook.Api
-dotnet restore
-```
 
-### ▶️ Running
+### ▶️ Running (development)
 ```bash
 dotnet run
 ```
