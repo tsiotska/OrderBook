@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Json;
-using OrderBookApi.Models;
-
+﻿using OrderBookApi.Models;
 
 namespace OrderBookApi.Services;
 
@@ -8,20 +6,20 @@ public class BitstampOrderBookProvider : IOrderBookProvider
 {
     private readonly HttpClient _http;
 
-    private const string
-        Url = "https://www.bitstamp.net/api/v2/order_book/btcusd/";
+    private readonly string _url;
 
 
-    public BitstampOrderBookProvider(IHttpClientFactory factory)
+    public BitstampOrderBookProvider(IHttpClientFactory factory, IConfiguration config)
     {
         _http = factory.CreateClient();
+        _url = config["Bitstamp:OrderBookUrl"]
+               ?? throw new InvalidOperationException("Bitstamp URL is not configured");
     }
 
 
     public async Task<OrderBookSnapshot> GetSnapshotAsync(CancellationToken ct = default)
     {
-
-        var resp = await _http.GetFromJsonAsync<BitstampResponse>(Url, ct);
+        var resp = await _http.GetFromJsonAsync<BitstampResponse>(_url, ct);
         if (resp == null) throw new InvalidOperationException("Failed to fetch order book");
 
 
